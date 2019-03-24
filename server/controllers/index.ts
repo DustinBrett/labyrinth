@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 
 export default (): Router => {
   const router = Router();
-  const controllers = require('require.directory')('./', { extensions: ['.ts'] });
+  const controllers = require('require.directory')('./', { extensions: ['.js', '.ts'] });
 
   for (const controller in controllers) {
     if (
