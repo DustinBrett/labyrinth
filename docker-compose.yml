@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    restart: always
+
+  node:
+    command: node /root/dist/server.js
+    depends_on:
+      - mongo
+    image: node:latest
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - ./server:/root
+
+  nginx:
+    depends_on:
+      - node
+    image: nginx:latest
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - ./dist:/usr/share/nginx/html
